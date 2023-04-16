@@ -19,7 +19,7 @@
 main{
     margin: 0px auto;
     max-width: 1600px;
-    min-height: 100vh;
+    min-height: 50vh;
     padding: 200px 150px;
 }
 
@@ -947,9 +947,16 @@ ul.skill-list li {
  /*-----------------------------------------------------------------------
  Contact section */
 
-.contact_styledText{
-    visibility: visible;
+.contact-content{
+    max-width: 900px;
 }
+
+.contact-content .inner{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 50px;
+}
+
 
 .contact-left{
     width: 400px;
@@ -1027,10 +1034,16 @@ form input, form textarea{
     }
     .contact-left, .contact-right{
         flex-basis: 100%;
-        height: 350px;
+        height: 250px;
         width: 200px;
     }
   }
+
+  @media (max-width: 768px){
+    .contact-content .inner {
+        display: block;
+    }
+}
  /*-----------------------------------------------------------------------
  Footer section */
 
