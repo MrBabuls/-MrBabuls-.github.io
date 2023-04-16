@@ -1,0 +1,136 @@
+<!--Author: Noora Karhulahti-->
+<!--Date: 27.3.2023-->
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <!--<![endif]-->
+
+    <head>
+
+        <!--- basic page needs
+        ================================================== -->
+        <meta charset="utf-8">
+        <title>Contact - Noora Karhulahti</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- mobile specific metas
+        ================================================== -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- CSS
+        ================================================== -->
+        <link rel="stylesheet" href="../css/style.css">
+
+        
+        <script src="https://kit.fontawesome.com/0a79cb2e9b.js" crossorigin="anonymous"></script>
+
+    </head>
+
+    <body id="top">
+
+        <!-- header
+        ================================================== -->
+        <header class="header">
+            <nav class="navigation">
+                <div class="header-logo">
+                    <a class="logo" href="index.html"><img class="logo-image" src="../image/logos/logo.svg" alt="Homepage"></a>
+                </div>
+                <div class="headerLinks">
+                    <ol>
+                        <li><a href="../index.html" title="Home">Home</a></li>
+                        <li><a href="about.html" title="About">About</a></li>
+                        <li><a href="contact.html" title="Contact">Contact</a></li>
+                    </ol>
+                </div>
+                <div class="menu__styledMenu">
+                    <div>
+                        <button onclick="openMenu()" id="modalButton" class="menu__styledHamburgerButton ham-box ham-box-inner">
+                            <div class="ham-box">
+                                <div class="ham-box-inner"></div>
+                            </div>
+                        </button>
+                        <div id="open-styleMenu" class="openMenu">
+                            <span class="close-styleMenu"><i class="fa-solid fa-xmark"></i></span>
+                            <nav class="modal-content">
+                                <ol>
+                                    <li><a href="../index.html" title="Home">Home</a></li>
+                                    <li><a href="about.html" title="About">About</a></li>
+                                    <li><a href="contact.html" title="Contact">Contact</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    <!-- end header -->
+
+        <!-- contact
+        ================================================== -->
+        <main>
+            <section id="contact" class="contact-content">
+                    <div class="inner">
+                        <div class="contact_styledText">
+                    <div class="contact-left">
+                        <h2 class="numbered-heading">Contact me</h2>
+                        <p>Got a question or just want to say hello? Then please reach out, i would love to hear more about you!</p>
+                        <h2>Email</h2>
+                        <div class="email-text">
+                            <p>höpöhöpö@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-right">
+                    <form>
+                        <input type="text" name="Name" placeholder="Your Name" required>
+                        <input type="text" name="email" placeholder="Email" required>
+                        <textarea name="Message" rows="6" placeholder="Type you message here..."></textarea>
+                        <button type="submit" class="btn">Submit</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+                            <!--footer
+            ================================================== -->
+            <footer class="footer__styledFooter row">
+                <div class="footer__styledSocialLinks links">
+                    <ul>
+                        <li>
+                            <a href="https://www.linkedin.com/in/noora-karhulahti-74a6a024b//" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/MrBabuls" title="GitHub"><i class="fab fa-github"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://norbit.itch.io/" title="Itch.io"><i class="fa-brands fa-itch-io"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/noorabirgit/" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__styledCredits credits">
+                    <div>Copyright Noora Karhulahti 2023</div>
+                </div>
+            </footer>
+            <!-- end footer -->
+
+            <script>
+                
+                var modal = document.getElementById("open-styleMenu");
+                var btn = document.getElementById("modalButton");
+                var span = document.getElementsByClassName("close-styleMenu")[0];
+
+                function openMenu() {
+
+                    modal.style.display = "block";
+                    btn.style.display = "none";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                    btn.style.display = "block"
+                }
+            </script>
+    </body>
+</html>

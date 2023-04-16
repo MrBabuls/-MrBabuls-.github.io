@@ -1,0 +1,149 @@
+<!--Author: Noora Karhulahti-->
+<!--Date: 27.3.2023-->
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <!--<![endif]-->
+
+    <head>
+
+        <!--- basic page needs
+        ================================================== -->
+        <meta charset="utf-8">
+        <title>About - Noora Karhulahti</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- mobile specific metas
+        ================================================== -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- CSS
+        ================================================== -->
+        <link rel="stylesheet" href="../css/style.css">
+        
+        <script src="https://kit.fontawesome.com/0a79cb2e9b.js" crossorigin="anonymous"></script>
+
+    </head>
+
+    <body id="top">
+
+        <!-- header
+        ================================================== -->
+        <header class="header">
+            <nav class="navigation">
+                <div class="header-logo">
+                    <a class="logo" href="index.html"><img class="logo-image" src="../image/logos/logo.svg" alt="Homepage"></a>
+                </div>
+                <div class="headerLinks">
+                    <ol>
+                        <li><a href="../index.html" title="Home">Home</a></li>
+                        <li><a href="about.html" title="About">About</a></li>
+                        <li><a href="contact.html" title="Contact">Contact</a></li>
+                    </ol>
+                </div>
+                <div class="menu__styledMenu">
+                    <div>
+                        <button onclick="openMenu()" id="modalButton" class="menu__styledHamburgerButton ham-box ham-box-inner">
+                            <div class="ham-box">
+                                <div class="ham-box-inner"></div>
+                            </div>
+                        </button>
+                        <div id="open-styleMenu" class="openMenu">
+                            <span class="close-styleMenu"><i class="fa-solid fa-xmark"></i></span>
+                            <nav class="modal-content">
+                                <ol>
+                                    <li><a href="../index.html" title="Home">Home</a></li>
+                                    <li><a href="about.html" title="About">About</a></li>
+                                    <li><a href="contact.html" title="Contact">Contact</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    <!-- end header -->
+
+        <!-- about
+        ================================================== -->
+        <main>
+            <section id="about" class="about-content">
+                <h2 class="numbered-heading">About Me</h2>
+                    <div class="inner">
+                        <div class="about_styledText">
+                            <div>
+                                <p>
+                                    Hello! My name is Noora Karhulahti and I enjoy making a games. 
+                                    As a child, I developed a strong interest in games. In 2022, I made the decision to pursue my passion by applying to school to study game programming. 
+                                    Much to my delight, I was accepted and able to make my dream a reality.
+                                </p>
+                                <p>
+                                    Here are a few technologies I’ve been working with recently:
+                                </p>
+                            </div>
+                            <ul class="skill-list">
+                                <li>C#</li>
+                                <li>C++</li>
+                                <li>HTML</li>
+                                <li>CSS</li>
+                                <li>BLENDER</li>
+                            </ul>
+                        </div>
+                        <div class="about_styledPic testi">
+                            <div class="wrapper">
+                                <div data-gatsby-image-wrapper class=" data-gatsby-image-wrapper data-gatsby-image-wrapper-constrained img">
+                                    <div style= "max-width: 500px; display: block;">
+                                        <img alt role="presentation" aria-hidden="true" src="../image/profile_img.png" style="max-width: 100%; display: block; position: static;">
+                                    </div>
+                                    <div aria-hidden="true" data-placeholder-image style="opacity: 0; transition: opacity 500ms linear 0s; background-color: rgb(232, 232, 232); position: absolute; inset: 0px; object-fit: cover;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </main>
+                    <!--footer
+            ================================================== -->
+            <footer class="footer__styledFooter row">
+                <div class="footer__styledSocialLinks links">
+                    <ul>
+                        <li>
+                            <a href="https://www.linkedin.com/in/noora-karhulahti-74a6a024b//" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/MrBabuls" title="GitHub"><i class="fab fa-github"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://norbit.itch.io/" title="Itch.io"><i class="fa-brands fa-itch-io"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/noorabirgit/" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__styledCredits credits">
+                    <div>Copyright Noora Karhulahti 2023</div>
+
+                </div>
+            </footer>
+            <!-- end footer -->
+
+            <script>
+                
+                var modal = document.getElementById("open-styleMenu");
+                var btn = document.getElementById("modalButton");
+                var span = document.getElementsByClassName("close-styleMenu")[0];
+
+                function openMenu() {
+
+                    modal.style.display = "block";
+                    btn.style.display = "none";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                    btn.style.display = "block"
+                }
+            </script>
+    </body>
+</html>
