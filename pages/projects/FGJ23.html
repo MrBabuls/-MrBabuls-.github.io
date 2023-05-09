@@ -91,15 +91,11 @@
                 <h2 class="lead">Project description </h2>
                 
                 <p>
-                    I participated Game Jam Univali + Xamk on 24 September 2022 – 26 September 2022. For the first time I was along making a game for game jams. 
-                    The team included Tarita Karhulahti and Riku Heino and we had 48 hours’ time to create a game that fit the predetermined theme.
-                    The theme of these game jams was "assembly and disassembly". We started planning our game and tossing around different ideas and finally ended up with 
-                    SOS - Submarine of senseless where the captain has gone insane and is trying to destroy the submarine. 
-                    Player has 2 minutes time to fix the submarine otherwise the game ends. This game can be played with friends and the maximum number of players is 4. 
-                    The goal of the game is to survive and fix the submarine that the captain destroys. When the plan was completed Riku 3d modelled the characters and the game world for us. 
-                    My task was to program the movement for the characters, and I made the main menu, but luckily there was also experienced programmers in the team who helped me if I didn't know something. 
-                    On Friday, we planned the game, and we started making the game, and on Saturday the work continued. On Sunday, we made small additions, fine-tuned the game and assembled the game.
-                    We got the game done during the game jams as intended.
+                    The game was made as part of Finnish Game Jam 2023, which was organized from 3 February to 5 February 2023. 
+                    The team included Tarita Karhulahti, Riku Heino, Harto Kuukka and Joonas Vuorela and we had 48 hours’ time to create a game that fit the predetermined theme which was a “roots”. 
+                    On the first day we started to plan our game and we decided to do Attack of the Unrooters. Players need to help Bellroot to defence it´s flowerpot from evil Unrooters. Collect seed packs to fill your ammos and when times up jump back your flowerpot and be ready to shoot those Unrooters. 
+                    Player has x minutes time to collect seed packets before Unrooters come again. This game genre is tower defence and waves are the main event of the game, which becomes more challenging as the game progresses and more enemies appear. 
+                    As each wave progresses, you get a reward for completing the wave, which is player can collect seed bags.
                 </p>
 
                 <p>
@@ -108,148 +104,145 @@
 
                 <h2>Description of the task</h2>
 
-                <p> My task in the team was to program the game with Tarita. I was responsible for making the UI and the movement for the character using the input system. 
-                    I had to remove the options menu from the start menu because options menu didn’t work.
-                    After I got my tasks done, I started helping with the animation. 
-                    I made the movement for the characters in the start menu and the movement for the wheel in the game when the captain moved. 
-                    I also added music and sounds to the project.
+                <p>
+                    My task in the team was to be one of the programmers in the game jam. 
+                    I was responsible for making the UI, enemy AI and game level. 
                 </p>
 
                 <h2>Description of methods</h2>
-                <p> 
-                    In the game, the player moves the character with controller and fixes the problems that emerges in the submarine. 
-                    There were three types of problems, which were a gas leak, the breakdown of the electrical cabinet, and pipe overheating. 
-                    In the gas leak, the player has to tap the b button on the controller, trying to stop the gas leak. After the electrical cabinet breaks down, the player has to rotate the right joystick of the controller clockwise to repair the cabinet. 
-                    When the pipe overheats, the player has to rotate the right joystick of the controller counterclockwise. The most important thing in the game is to keep the submarine health level high enough when time runs out.
+                <p>
+                    In the game, the player moves the character using keyboard WASD and mouse. 
+                    Main event are the waves of the game, which becomes more challenging as the game progresses and more enemies appear. 
+                    As each wave progresses, you get a reward for completing the wave, which is player can collect seed bags.
                 </p>
 <pre><code class="code-style">
-    private void Awake()
+    public class enemyAI : MonoBehaviour
     {
-
-        controller = GetComponent();
-        Instance = this;
-    }
-
-    private void Start()
-    {
-        anim = GetComponent();
-    }
-
-    public int GetPlayerIndex()
-    {
-        return playerIndex;
-    }
-
-    public void SetInputVector(Vector2 direction)
-    {
-        inputVector = direction;
-    }
-
-    void Update()
-    {
-        Vector3 move = new Vector3(inputVector.x, 0, inputVector.y);
-        controller.Move(move * Time.deltaTime * MoveSpeed);
-
-        if (move != Vector3.zero)
+        public NavMeshAgent agent;
+    
+        public Transform flowerPot;
+    
+        public IntVariable flowerhp;
+    
+        public ParticleSystem deathEffect;
+    
+        public ParticleSystem bornEffect;
+    
+        public int health = 3;
+    
+    
+        public Animator anim;
+    
+        AddScore score;
+    
+        bool isDead = false;
+    
+        protected void Awake()
         {
-            gameObject.transform.forward = move;
+            flowerPot = GameObject.Find("FlowerPot").transform;
+            agent = GetComponent<span class="tag code-text">NavMeshAgent</span>();
+            anim= GetComponent<span class="tag code-text">Animator</span>();
+            bornEffect.gameObject.SetActive(true);
+            bornEffect.gameObject.transform.parent = null;
+            bornEffect.Stop(true);
+            bornEffect.Play(true);
+            anim.SetBool("isEnemy", true);
+            score = GetComponent<span class="tag code-text">AddScore</span>();
         }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
-
-        if (lastPosition != transform.position)
+    
+        protected void Update()
         {
-            isMoving = true;
-            lastPosition = transform.position;
+    
+            ChasePlayer();
+    
+            if (agent.stoppingDistance < 2f)
+            {
+                AttackPlayer();
+            }
         }
-        else
-            isMoving = false;
-
-    }
-
-    public void OnMove(CallbackContext value)
-    {
-        inputVector = value.ReadValue();
-
-    }
-
-    private void LateUpdate()
-    {
-        DoAnimations();
-    }
-
-    void DoAnimations()
-    {
-
-        if(isMoving)
+    
+        private void ChasePlayer()
         {
             anim.SetBool("isWalking", true);
-            anim.SetBool("isWorking", false);
-            anim.SetBool("isIdling", false);
+            anim.SetBool("isAttacking", false);
+            agent.isStopped = false;
+            agent.SetDestination(flowerPot.position);   
         }
-
-        else
+    
+        private void AttackPlayer()
         {
             anim.SetBool("isWalking", false);
-            anim.SetBool("isWorking", false);
-            anim.SetBool("isIdling", true);
+            anim.SetBool("isAttacking", true);
+            agent.isStopped = true;
+    
+            transform.LookAt(flowerPot);
+    
+            flowerhp.Value--;
+    
+        
+            deathEffect.gameObject.transform.parent= null;
+            PlayDeathEffect();
+            score.Subtract();
+            GameManager.instance.CheckForDeadEnemy();
+    
+            EnemyManager.instance.CountDeathEnemies();
+            Destroy(gameObject);
         }
-
-    }
-
-    public void OnTapping(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
+    
+        public void TakeDamage (int amount)
         {
-            return;
-        }
-        if (context.interaction is TapInteraction)
-        {
-            if (ableToRepair == true)
+            health -= amount;
+            if (health <= 0 && !isDead)
             {
-                RepairPipeTab();
-
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isWorking", true);
-                anim.SetBool("isIdling", false);
+                agent.enabled = false;
+                isDead = true;
+    
+                GameManager.instance.CheckForDeadEnemy();
+    
+                deathEffect.gameObject.transform.parent = null;
+                PlayDeathEffect();
+                score.Add();
+    
+                EnemyManager.instance.CountDeathEnemies();
+                
+                Destroy(gameObject);
+            }
+        }
+    
+        private void PlayDeathEffect()
+        {
+            SoundEngine.instance.PlaySoundAt("enemy_death", transform.position,null,1);
+            deathEffect.gameObject.SetActive(true);
+            deathEffect.Stop(true);
+            deathEffect.Play(true);
+        }
+    
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("FlowerPot"))
+            {
+                AttackPlayer();
             }
         }
     }
-
-    public void ResetTabs()
-    {
-        tabAmount = 0;
-    }
-
-    public void RepairPipeTab()
-    {
-        tabAmount++;
-    }
-}
 </code></pre>
 
-                <p> From the code above, you can see the character movement in the game.</p>
+                <p> From the code above, you can see the enemy AI in game.</p>
 
                 <h2>Problems and solutions</h2>
 
                 <p> 
-                    My first problem came when I had to use the input component. 
-                    The Input component did not read the given values that the user entered from the controller. 
-                    We solved the problem by setting the correct functions in the input settings for the event.
-                    Second problem came when we started to assemble the game with the main menu. 
-                    We had to use the same controller input system there. There was no time to fix the main menu because time was running out. 
-                    Also, we had to leave the options menu out because we didn't manage to fix it in the last few hours.
-
+                    Our team biggest problem was communication. 
+                    The opinion of how the final game would look and work was very different from the opinion of some of our team. 
+                    We solve the problem by voting.
                 </p>
 
                 <h2>Final assessment</h2>
 
-                <p> I’m really happy how well the project turned out. 
-                    We managed to make a functional game during the game jam. 
-                    I really enjoyed being involved in planning of the game and programming it. 
-                    I achieved much more than I would have thought and learned a lot of new things, I am very satisfied in the team's results.</p>
+                <p>
+                    I’m really proud how funny and great game we created during the game jam. 
+                    The team members help me a lot and I learned new things and most importantly I got to repeat the previous game jams.
+                </p>
                 <div class="blog-content__pagenav">
                     <div class="blog-content__all">
                         <a href="../../index.html" class="btn btn--primary">
@@ -262,7 +255,7 @@
                     <h3>Responsive video</h3>
         
                     <div class="video-container">
-                    <iframe width="420" height="315" src="https://www.youtube.com/embed/549Xq7awUck" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="420" height="315" src="https://www.youtube.com/embed/VjiYkFdCerc" frameborder="0" allowfullscreen></iframe>
                     </div>
         
                 </div>
